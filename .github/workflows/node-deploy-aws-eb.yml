@@ -1,7 +1,10 @@
 name: deploy
-on: 
+
+on:
   push:
-    branches: [master] // GitHub event like push, pull-request etc
+    branches:
+      - master
+
 env:
   APP_NAME: eb1
   ENV_NAME: Eb1-env
@@ -15,50 +18,50 @@ jobs:
     runs-on: ubuntu-latest  // Using latest ubuntu latest version
 
     steps:
-    - uses: actions/checkout@v1
-    
-    - name: Cache node modules
-      uses: actions/cache@v1
-      with:
-        path: ~/.npm
-        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-node-
+      - uses: actions/checkout@v1
 
-    - name: Node ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
+      - name: Cache node modules
+        uses: actions/cache@v1
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
 
-    - name: Installing NPM
-      run: npm install
+      - name: Node ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
 
-    - name: Generate deployment package
-      run: zip -r deploy.zip * -x "**node_modules**"
+      - name: Installing NPM
+        run: npm install
 
-    - name: Get timestamp
-      uses: gerred/actions/current-time@master
-      id: current-time
+      - name: Generate deployment package
+        run: zip -r deploy.zip * -x "**node_modules**"
 
-    - name: Run string replace
-      uses: frabert/replace-string-action@master
-      id: format-time
-      with:
-        pattern: '[:\.]+'
-        string: "${{ steps.current-time.outputs.time }}"
-        replace-with: '-'
-        flags: 'g'
-    
-    - name: Beanstalk Deploy
-      uses: einaregilsson/beanstalk-deploy@v4
-      with:
-        aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        region: ${{env.AWS_REGION}}
-        application_name: ${{env.APP_NAME}}
-        environment_name: ${{env.ENV_NAME}}
-        version_label: "my-app-${{ steps.format-time.outputs.replaced }}"
-        deployment_package: deploy.zip
+      - name: Get timestamp
+        uses: gerred/actions/current-time@master
+        id: current-time
 
-    - name: Deployed!
-      run: echo App deployed to ELB
+      - name: Run string replace
+        uses: frabert/replace-string-action@master
+        id: format-time
+        with:
+          pattern: '[:\.]+'
+          string: '${{ steps.current-time.outputs.time }}'
+          replace-with: '-'
+          flags: 'g'
+
+      - name: Beanstalk Deploy
+        uses: einaregilsson/beanstalk-deploy@v4
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          region: ${{env.AWS_REGION}}
+          application_name: ${{env.APP_NAME}}
+          environment_name: ${{env.ENV_NAME}}
+          version_label: 'my-app-${{ steps.format-time.outputs.replaced }}'
+          deployment_package: deploy.zip
+
+      - name: Deployed!
+        run: echo App deployed to ELB
