@@ -1,4 +1,4 @@
-name: Deploy Node app on AWS Elastic Beanstalk
+name: deploy
 on: 
   push:
     branches: [master] // GitHub event like push, pull-request etc
@@ -11,7 +11,7 @@ env:
   PIPELINE_ID: ${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}
 
 jobs:
-  deploy_aws:
+  deploy:
     runs-on: ubuntu-latest  // Using latest ubuntu latest version
 
     steps:
