@@ -5,36 +5,12 @@ on:
     branches:
       - master
 
-env:
-  APP_NAME: eb1
-  ENV_NAME: Eb1-env
-  S3_BUCKET: elasticbeanstalk-us-east-2-976301040207
-  AWS_REGION: us-east-2
-  AWS_PLATFORM: Docker
-  PIPELINE_ID: ${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v1
-
-      - name: Cache node modules
-        uses: actions/cache@v1
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-
-      - name: Node ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-
-      - name: Installing NPM
-        run: npm install
 
       - name: Generate deployment package
         run: zip -r deploy.zip * -x "**node_modules**"
@@ -53,13 +29,13 @@ jobs:
           flags: 'g'
 
       - name: Beanstalk Deploy
-        uses: einaregilsson/beanstalk-deploy@v4
+        uses: einaregilsson/beanstalk-deploy@v16
         with:
           aws_access_key: ${{secrets.AWS_ACCESS_KEY_ID}}
           aws_secret_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
-          region: ${{env.AWS_REGION}}
-          application_name: ${{env.APP_NAME}}
-          environment_name: ${{env.ENV_NAME}}
+          region: us-east-2
+          application_name: eb1
+          environment_name: Eb1-env
           version_label: 'my-app-${{steps.format-time.outputs.replaced}}'
           deployment_package: deploy.zip
 
