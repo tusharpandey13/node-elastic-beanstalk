@@ -15,7 +15,7 @@ env:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest  // Using latest ubuntu latest version
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v1
