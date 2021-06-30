@@ -12,6 +12,13 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
+      - name: Create env file
+              run: |
+                touch .env
+                echo NODE_ENV="production" >> .env
+                echo MONGODB_URI=${{ secrets.MONGODB_URI }} >> .env
+                cat .env
+
       - name: Generate deployment package
         run: zip -r deploy.zip * -x "**node_modules**"
 
