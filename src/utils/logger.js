@@ -81,7 +81,7 @@ module.exports = ({ colorizeMessage = true }) => {
     // defaultMeta: { module: path.basename(moduleName) },
     transports: [
       new winston.transports.Console(),
-      // new winston.transports.File({ filename: 'logfile.log' }),
+      new winston.transports.File({ filename: 'logfile.log' }),
     ],
   });
 };
