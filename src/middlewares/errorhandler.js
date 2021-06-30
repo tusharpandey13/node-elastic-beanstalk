@@ -5,13 +5,14 @@ const HttpStatus = require('http-status-codes');
  * Error response middleware for 404 not found.
  */
 module.exports.notFound = (req, res, next) => {
-  next(
-    new CustomError({
-      message: HttpStatus.getStatusText(HttpStatus.NOT_FOUND),
-      status: HttpStatus.NOT_FOUND,
-      logLevel: 'warn',
-    })
-  );
+  return res.render('404', {});
+  // return next(
+  //   new CustomError({
+  //     message: HttpStatus.getStatusText(HttpStatus.NOT_FOUND),
+  //     status: HttpStatus.NOT_FOUND,
+  //     logLevel: 'warn',
+  //   })
+  // );
 };
 
 /**
