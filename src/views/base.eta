@@ -45,6 +45,7 @@
 
     #content {
       min-width: 50%;
+      padding: 1rem;
     }
 
     .hidden {
