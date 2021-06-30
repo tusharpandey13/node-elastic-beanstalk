@@ -1,0 +1,17 @@
+{
+  "development": {
+    "LOG_LEVEL": "debug",
+    "PRETTY_LOGS": true
+  },
+  "staging": {
+    "LOG_LEVEL": "verbose",
+    "PRETTY_LOGS": true
+  },
+  "production": {
+    "LOG_LEVEL": "http",
+    "PRETTY_LOGS": false
+  },
+  "common": {
+    "PORT": 8080
+  }
+}

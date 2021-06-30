@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Document</title>
+  <link rel="stylesheet" href="/cutestrap.min.css">
+
+  <style>
+    html {
+      --color-neutral-tint4: #fff;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
+
+    h3 {
+      color: var(--color-neutral-shade2);
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    a:hover {
+      background: dodgerblue;
+      color: white;
+      text-decoration: none;
+    }
+
+    .custombutton {
+      background: #009688;
+    }
+
+    .custombutton:hover {
+      background: #004d40;
+    }
+
+    #content {
+      min-width: 50%;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .error {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 1rem;
+      background: #ffccbc;
+      color: #a94442;
+      border-radius: 0.5rem;
+      border: 2px dashed #ff8a65;
+    }
+
+    .customa:hover {
+      background: inherit;
+      color: initial;
+    }
+  </style>
+
+</head>
+
+<body class="">
+
+  <div id="content">
+
+    <a class="customa" href="/">
+      <h3>Link Shortener</h3>
+    </a>
+
+
+    <%~ it.body %>
+
+  </div>
+</body>
+
+</html>

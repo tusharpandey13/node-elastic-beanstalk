@@ -1,0 +1,19 @@
+<% layout('./base') %>
+
+  
+    <p>
+    <% if (it.shortUrl) { %>
+        <p class="mb-zero">Shortened link:</p>
+        <a class="-link customa" href=<%= it.shortUrl.toString() %>>
+        <%= it.shortUrl %>
+        </a>
+    <% } %>
+
+    <% if (it.error) { %>
+        <div class="error">
+          Error : <%= it.error %>
+        </div>
+    <% } %>
+
+    </p>
+  

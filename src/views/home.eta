@@ -1,0 +1,21 @@
+<% layout('./base') %>
+
+  <form action="/shortenbrowser" method="POST">
+    <label class="field">
+      <input type="text" name="longUrl" />
+      <span class="label">Enter URL</span>
+    </label>
+    <input type="submit" class="button custombutton" value="Shorten!" />
+  </form>
+
+  <br />
+  <div class="fs-small">
+    <p>This is an example of a link shortening microservice.</p>
+    <li>It is made using <a class="-link" href="https://nodejs.org/">NodeJS</a> and <a class="-link"
+        href="https://expressjs.com/">ExpressJS</a></li>
+    <li>It uses <a class="-link" href="https://www.mongodb.com/">MongoDB</a> as document store</li>
+    <li>It is currently deployed on <a class="-link" href="https://aws.amazon.com/elasticbeanstalk/">AWS Elastic
+        Beanstalk</a> using <a class="-link" href="https://github.com/features/actions">Github Actions</a> CI/CD</li>
+    <li>At 1000 hashes per second, it can ensure almost 0% collision rate of url hashes for upto 15 years</li>
+    <li>An api is also exposed for the same</li>
+  </div>
