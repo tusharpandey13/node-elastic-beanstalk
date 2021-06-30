@@ -11,15 +11,15 @@ const errorhandler = require('../middlewares/errorhandler');
 module.exports = async (app, db) => {
   // cors, helmet, compression
   await app.use(cors());
-  await app.use(helmet());
-  await app.use(
-    compression({
-      filter: (req, res) => {
-        if (req.headers['x-no-compression']) return false;
-        return compression.filter(req, res);
-      },
-    })
-  );
+  // await app.use(helmet());
+  // await app.use(
+  //   compression({
+  //     filter: (req, res) => {
+  //       if (req.headers['x-no-compression']) return false;
+  //       return compression.filter(req, res);
+  //     },
+  //   })
+  // );
   // json, urlencoded
   await app.use(express.urlencoded({ extended: true }));
   await app.use(express.json());
@@ -28,14 +28,22 @@ module.exports = async (app, db) => {
   await app.set('view engine', 'eta');
   await app.set('views', path.join(__dirname, '/../views/'));
   await app.use('/favicon.ico', express.static('src/public/favicon.ico'));
-  await app.use(express.static('src/public'));
+  await app.use(express.static('src/public/static'));
+
+  app.use(function (req, res, next) {
+    res.setHeader(
+      'Content-Security-Policy',
+      "default-src * 'unsafe-inline' 'unsafe-eval'; script-src * 'unsafe-inline' 'unsafe-eval'; connect-src * 'unsafe-inline'; img-src * data: blob: 'unsafe-inline'; frame-src *; style-src * 'unsafe-inline';"
+    );
+    return next();
+  });
 
   // custom request logger middleware
   await app.use(async (req, res, next) => {
     __logger.http(
       `${req.method}  ${req.path}  ${req.headers['x-forwarded-for'] || req.connection.remoteAddress}`
     );
-    next();
+    return next();
   });
 
   // Routes
