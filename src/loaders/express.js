@@ -28,7 +28,7 @@ module.exports = async (app, db) => {
   await app.set('view engine', 'eta');
   await app.set('views', path.join(__dirname, '/../views/'));
   await app.use('/favicon.ico', express.static('src/public/favicon.ico'));
-  await app.use(express.static('src/public/static'));
+  await app.use(express.static('src/public'));
 
   app.use(function (req, res, next) {
     res.setHeader(
