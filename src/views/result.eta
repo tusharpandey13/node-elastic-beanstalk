@@ -4,7 +4,7 @@
     <p>
     <% if (it.shortUrl) { %>
         <p class="mb-zero">Shortened link:</p>
-        <a class="-link customa" href=<%= it.shortUrl.toString() %>>
+        <a class="-link" href=<%= it.shortUrl.toString() %>>
         <%= it.shortUrl %>
         </a>
     <% } %>
