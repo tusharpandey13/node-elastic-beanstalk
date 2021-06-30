@@ -1,6 +1,5 @@
 const express = require('express');
 const cors = require('cors');
-const helmet = require('helmet');
 const compression = require('compression');
 const eta = require('eta');
 const path = require('path');
@@ -29,14 +28,6 @@ module.exports = async (app, db) => {
   await app.set('views', path.join(__dirname, '/../views/'));
   await app.use('/favicon.ico', express.static('src/public/favicon.ico'));
   await app.use(express.static('src/public'));
-
-  // app.use(function (req, res, next) {
-  //   res.setHeader(
-  //     'Content-Security-Policy',
-  //     "default-src * 'unsafe-inline' 'unsafe-eval'; script-src * 'unsafe-inline' 'unsafe-eval'; connect-src * 'unsafe-inline'; img-src * data: blob: 'unsafe-inline'; frame-src *; style-src * 'unsafe-inline';"
-  //   );
-  //   return next();
-  // });
 
   // custom request logger middleware
   await app.use(async (req, res, next) => {
