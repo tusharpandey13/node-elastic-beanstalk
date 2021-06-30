@@ -11,7 +11,7 @@ port = process.env.PORT || 8080;
 
 // Catch all other routes and return the index file
 app.get('/', (req, res) => {
-  fs.readFile(".env","utf8" ,function(err, contents){
+  fs.readFile("abcd","utf8" ,function(err, contents){
   res.send(contents);
  });
 });
