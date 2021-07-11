@@ -5,6 +5,8 @@ It uses an express app deployed on AWS Elastic Beanstalk using Docker automated 
 
 > Deployed on [http://eb1-env.eba-np965qgi.us-east-2.elasticbeanstalk.com/](http://eb1-env.eba-np965qgi.us-east-2.elasticbeanstalk.com/)
 
+![System architecture](https://github.com/tusharpandey13/node-elastic-beanstalk/raw/master/src/public/system.jpg 'System architecture')
+
 ### Features
 
 - Made using NodeJS and ExpressJS
