@@ -86,7 +86,7 @@ module.exports = async (app, db) => {
     try {
       let result = await redisClient.get(req.params.urlCode);
       if (result) {
-        console.log(`got cached ${result}`);
+        __logger.info(`got cached ${result}`);
       } else {
         result = (
           await crudController.get({
@@ -95,7 +95,7 @@ module.exports = async (app, db) => {
             data: req,
           })
         ).result[0].longUrl;
-        console.log(`caching ${result}`);
+        __logger.info(`caching ${result}`);
         if (result) redisClient.set(req.params.urlCode, result);
       }
       return res.redirect(result);

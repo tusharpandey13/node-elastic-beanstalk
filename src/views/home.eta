@@ -15,6 +15,7 @@
     <li>It is made using <a class="-link" href="https://nodejs.org/">NodeJS</a> and <a class="-link"
         href="https://expressjs.com/">ExpressJS</a></li>
     <li>It uses <a class="-link" href="https://www.mongodb.com/">MongoDB</a> as document store</li>
+    <li>It uses <a class="-link" href="https://redis.io/">Redis</a> as caching layer</li>
     <li>It is deployed automatically on <a class="-link" href="https://aws.amazon.com/elasticbeanstalk/">AWS Elastic
         Beanstalk</a> using <a class="-link" href="https://github.com/features/actions">Github Actions</a> CI/CD</li>
     <li>At 1000 hashes per second, it can ensure almost 0% collision rate of url hashes for upto 15 years</li>
