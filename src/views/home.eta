@@ -12,6 +12,11 @@
   <div class="fs-small">
     <p>This is an example of a link shortening microservice.</p>
     <p>You can find the source code on <a class="-link" href="https://github.com/tusharpandey13/node-elastic-beanstalk">github</a></p>
+
+    <p>
+    <img src="/system.jpg"/>
+    </p>
+
     <li>It is made using <a class="-link" href="https://nodejs.org/">NodeJS</a> and <a class="-link"
         href="https://expressjs.com/">ExpressJS</a></li>
     <li>It uses <a class="-link" href="https://www.mongodb.com/">MongoDB</a> as document store</li>
