@@ -15,10 +15,15 @@ jobs:
       - name: Create env file
         env:
           MONGODB_URI: ${{ secrets.MONGODB_URI }}
+          REDIS_PASSWORD: ${{ secrets.REDIS_PASSWORD }}
+          REDIS_HOST: ${{ secrets.REDIS_HOST }}
         run: |
           touch .env
           echo "NODE_ENV=production" >> .env
           echo "MONGODB_URI=$MONGODB_URI" >> .env
+          echo "REDIS_PASSWORD=$REDIS_PASSWORD" >> .env
+          echo "REDIS_HOST=$REDIS_HOST" >> .env
+          echo "REDIS_PORT=18699" >> .env
           cat .env
 
       - name: Generate deployment package

@@ -3,7 +3,21 @@ const model = require('../models/url');
 const crudController = new crudControllerClass({ model });
 const validUrl = require('valid-url');
 const fs = require('fs');
-const path = require('path');
+const util = require('util');
+const redis = require('redis');
+
+const { REDIS_HOST, REDIS_PORT, REDIS_PASSWORD } = require('../config');
+
+const redisClient = redis.createClient({
+  host: REDIS_HOST,
+  port: REDIS_PORT,
+  password: REDIS_PASSWORD,
+});
+redisClient.get = util.promisify(redisClient.get);
+redisClient.set = util.promisify(redisClient.set);
+redisClient.on('error', function (error) {
+  __logger.error(error);
+});
 
 module.exports = async (app, db) => {
   // test
@@ -44,7 +58,7 @@ module.exports = async (app, db) => {
     }
   });
 
-  app.get('/getall', await crudController.get({}));
+  // app.get('/getall', await crudController.get({}));
 
   app.get('/', async (req, res, next) => {
     try {
@@ -54,15 +68,15 @@ module.exports = async (app, db) => {
     }
   });
 
-  // // endpoint to clear DB and session cache. Enable with care!!!
+  // endpoint to clear DB and session cache. Enable with care!!!
   app.get('/cleardb', async (req, res) => {
     try {
       await db.dropDatabase(console.log(`${db.databaseName} database dropped.`));
-      // session.redisClient.flushdb(function (err, succeeded) {
-      //   console.log(succeeded); // will be true if successfull
-      //   console.log(err);
-      // });
-      res.send('Ok');
+      redisClient.flushdb(function (err, succeeded) {
+        console.log(succeeded); // will be true if successfull
+        console.log(err);
+        res.json({ succeeded, err });
+      });
     } catch (err) {
       res.send(err);
     }
@@ -70,12 +84,21 @@ module.exports = async (app, db) => {
 
   app.get('/:urlCode', async (req, res, next) => {
     try {
-      const tmp = await crudController.get({
-        idfield: 'urlCode',
-        returnMiddleware: false,
-        data: req,
-      });
-      return res.redirect(tmp.result[0].longUrl);
+      let result = await redisClient.get(req.params.urlCode);
+      if (result) {
+        console.log(`got cached ${result}`);
+      } else {
+        result = (
+          await crudController.get({
+            idfield: 'urlCode',
+            returnMiddleware: false,
+            data: req,
+          })
+        ).result[0].longUrl;
+        console.log(`caching ${result}`);
+        if (result) redisClient.set(req.params.urlCode, result);
+      }
+      return res.redirect(result);
     } catch (error) {
       if (error.message.includes("Cannot read property 'longUrl' of undefined")) {
         return res.render('404', {});

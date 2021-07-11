@@ -23,6 +23,7 @@
     "http-status-codes": "^2.1.4",
     "mongoose": "^5.12.15",
     "nanoid": "^3.1.23",
+    "redis": "^3.1.2",
     "valid-url": "^1.0.9",
     "winston": "^3.3.3"
   }

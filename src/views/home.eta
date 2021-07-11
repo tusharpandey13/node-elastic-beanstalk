@@ -1,6 +1,6 @@
 <% layout('./base') %>
 
-  <form action="http://eb1-env.eba-np965qgi.us-east-2.elasticbeanstalk.com/shortenbrowser" method="POST">
+  <form action="/shortenbrowser" method="POST">
     <label class="field">
       <input type="text" name="longUrl" />
       <span class="label">Enter URL</span>

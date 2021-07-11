@@ -12,6 +12,7 @@
     "PRETTY_LOGS": false
   },
   "common": {
-    "PORT": 8080
+    "PORT": 8080,
+    "REDIS_PORT": 18699
   }
 }
