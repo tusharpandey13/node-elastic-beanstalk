@@ -23,6 +23,5 @@
     <li>It uses <a class="-link" href="https://redis.io/">Redis</a> as caching layer</li>
     <li>It is deployed automatically on <a class="-link" href="https://aws.amazon.com/elasticbeanstalk/">AWS Elastic
         Beanstalk</a> using <a class="-link" href="https://github.com/features/actions">Github Actions</a> CI/CD</li>
-    <li>At 1000 hashes per second, it can ensure almost 0% collision rate of url hashes for upto 15 years</li>
     <li>An api is also exposed for the same. The API documentation can be found <a class="-link" href="https://documenter.getpostman.com/view/9368565/TzkyNLWL">here</a></li>
   </div>

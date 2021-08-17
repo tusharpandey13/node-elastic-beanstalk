@@ -14,7 +14,6 @@ It uses an express app deployed on AWS Elastic Beanstalk using Docker automated 
 - It uses redis as caching layer
 - It is deployed automatically on [AWS Elastic Beanstalk](https://aws.amazon.com/elasticbeanstalk/) using [Github Actions CI/CD](https://github.com/features/actions)
 - Docker is used for containerization of deploy packages
-- At 1000 hashes per second, it can ensure almost 0% collision rate of url hashes for upto 15 years
 - An api is also exposed for the same. The API documentation can be found [here](https://documenter.getpostman.com/view/9368565/TzkyNLWL)
 
 ### References:
